@@ -1,4 +1,5 @@
 let arrProduct = ["Nokia 11", "OPPO Extra", "Iphone 15", "Samsung Galaxy"];
+let indexEdit = -1
 
 function displayAllProduct() {
   let data = "<table>";
@@ -11,7 +12,7 @@ function displayAllProduct() {
   for (let i = 0; i < arrProduct.length; i++) {
     data += "<tr>";
     data += "<td>" + arrProduct[i] + "</td>";
-    data += "<td><button onclick='edit(" + i + ")'>Edit</button></td>";
+    data += "<td><button onclick='editGet(" + i + ")'>Edit</button></td>";
     data += "<td><button onclick='deleteP(" + i + ")'>Delete</button></td>";
     data += "</tr>";
   }
@@ -26,15 +27,19 @@ function add() {
   displayAllProduct();
 }
 
-function edit(index) {
-  let newProduct = prompt(
-    "Nhập tên mới: (" + arrProduct[index] + ")",
-    arrProduct[index]
-  );
-  if (newProduct != null) {
-    arrProduct[index] = newProduct;
+function editGet(index) {
+  indexEdit = index
+  document.getElementById("edit").value = arrProduct[index]
+}
+
+function editPost() {
+  let newProduct = document.getElementById("edit").value
+  if (newProduct != "") {
+    arrProduct[indexEdit] = newProduct
   }
-  displayAllProduct();
+  indexEdit = -1
+  document.getElementById("edit").value = ""
+  displayAllProduct()
 }
 
 function deleteP(index) {
